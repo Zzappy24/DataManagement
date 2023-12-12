@@ -122,7 +122,7 @@ def analyze_sold_products_by_country(df):
 
 
 # Load the Excel data
-excel_path = "/Users/zappy/Downloads/Dataset M2 Efrei HumanIT 23-24.xlsx"  # Replace with the actual path
+excel_path = "Dataset M2 Efrei HumanIT 23-24.xlsx"  # Replace with the actual path
 df = pd.read_excel(excel_path)
 
 # Sidebar
