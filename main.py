@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import random
 import seaborn as sns
 
-st.write({pd.__version__})
 
 
 def val_col_null(df, cols: list[str]):
