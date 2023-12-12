@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import random
 import seaborn as sns
 
+st.write({pd.__version__})
+
 
 def val_col_null(df, cols: list[str]):
     null_values = pd.DataFrame(columns=["Column", "Null Count", "Total Count"])
@@ -19,7 +21,7 @@ def val_col_null(df, cols: list[str]):
     
     # Display null values table
     st.subheader("Null Values in Columns")
-    st.table(null_values)
+    st.write(null_values)
 
     # Create a diagonal bar plot
     plt.figure(figsize=(10, 6))
@@ -47,6 +49,7 @@ def val_col_null(df, cols: list[str]):
     st.pyplot(plt)
 
 
+
 def analyze_sold_products(df):
     # Group by sold products
     grouped_data = df.groupby('Sold Products')['Paid Amount'].agg(['count', 'sum', 'mean']).reset_index()
@@ -56,7 +59,7 @@ def analyze_sold_products(df):
 
     # Display table with interesting metrics
     st.subheader("Key Metrics by Sold Products")
-    st.table(grouped_data)
+    st.write(grouped_data)
 
     # Plot total sales and average price
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
@@ -89,7 +92,7 @@ def analyze_sold_products_by_country(df):
 
     # Display table with interesting metrics
     st.subheader("Key Metrics by Sold Products and Country")
-    st.table(grouped_data)
+    st.write(grouped_data)
 
     # Plot total sales and average price by country
     unique_products = df['Sold Products'].unique()
