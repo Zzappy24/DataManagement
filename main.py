@@ -225,7 +225,7 @@ analyze_sold_products_by_country(df)
 analyze_sales_over_time(df)
 
 
-st.title("Next Steps for Data Transformation")
+st.title("Solution and How to make cleaner data")
 st.write("1. Short Term:")
 # Add code for short-term steps
 
@@ -234,9 +234,6 @@ st.write("2. Mid-Term:")
 
 st.write("3. Long Term:")
 # Add code for long-term steps
-
-# Q&A and Discussion
-st.title("Q&A and Discussion")
 
 # Open the floor for questions and discussions
 # Add code for interactive elements or discussion forum
