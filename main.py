@@ -120,6 +120,41 @@ def analyze_sold_products_by_country(df):
         st.subheader(f"Plots: {product} - Total Sales and Average Price by Country")
         st.pyplot(fig)
 
+    
+def analyze_sales_over_time(df):
+    # Convert 'Date of payment' to datetime
+    df['Date of payment'] = pd.to_datetime(df['Date of payment'])
+
+    # Group by 'Sold Products' and 'Date of payment'
+    grouped_data = df.groupby(['Sold Products', 'Date of payment'])['Paid Amount'].agg(['sum']).reset_index()
+    grouped_data.columns = ['Sold Products', 'Date of payment', 'Total Revenue']
+
+    st.title("Sales Evolution Over Time")
+
+    # Display table with interesting metrics
+    st.subheader("Key Metrics by Sold Products and Date of payment")
+    st.write(grouped_data)
+
+    # Plot total revenue over time for each product
+    unique_products = df['Sold Products'].unique()
+
+    for product in unique_products:
+        product_data = grouped_data[grouped_data['Sold Products'] == product]
+
+        plt.figure(figsize=(12, 6))
+
+        # Total Revenue over time
+        plt.plot(product_data['Date of payment'], product_data['Total Revenue'], label=product, marker='o')
+        plt.title(f'Total Revenue Over Time for {product}')
+        plt.xlabel('Date of payment')
+        plt.ylabel('Total Revenue')
+        plt.xticks(rotation=45, ha='right')
+
+        plt.legend()
+        plt.tight_layout()
+
+        st.subheader(f"Plot: {product} - Total Revenue Over Time")
+        st.pyplot(plt)
 
 # Load the Excel data
 excel_path = "Dataset M2 Efrei HumanIT 23-24.xlsx"  # Replace with the actual path
@@ -147,27 +182,33 @@ val_col_null(df, df.columns)
 st.write("2. Inconsistent Data, Amount is a float ?:")
 st.write(df.Amount.head())
 
-st.write("3. Data Accuracy:")
-# Add code to identify inaccurate data
+st.write(" There are two columns : Buyer Compagny Name, one with a mistake  :")
+st.write(df[["Buyer Comapny name", "Buyer Company name"]])
 
-st.write("4. Data Redundancy:")
+st.write(" There are two columns : Buyer Compagny Name, one with a mistake  :")
+st.write(df[["Buyer Comapny name", "Buyer Company name"]])
+
+st.write("we think that the second columns should be Seller Compagny Name")
+df.rename(columns={"Buyer Comapny name": "Buyer Company name", "Buyer Company name": "Seller Company name"})
+
+#st.write("4. Data Redundancy:")
 # Add code to identify duplicate entries
 
 # Remediation Plan
-st.subheader("Remediation Plan")
+#st.subheader("Remediation Plan")
 # Add code to propose a remediation plan
 
 # Key Data Quality Steps
-st.title("Key Data Quality Steps")
+#st.title("Key Data Quality Steps")
 
 # Display key data quality steps
-st.write("1. Data Profiling:")
-# Add code for data profiling
+###st.write("1. Data Profiling:")
 
-st.write("2. Data Cleaning:")
+
+#st.write("2. Data Cleaning:")
 # Add code for data cleaning
 
-st.write("3. Data Validation:")
+#st.write("3. Data Validation:")
 # Add code for data validation
 
 # Data Visualization
@@ -176,6 +217,12 @@ analyze_sold_products(df)
 # Display an example visualization
 analyze_sold_products_by_country(df)
 # Next Steps
+
+
+# analyze sales over time
+analyze_sales_over_time(df)
+
+
 st.title("Next Steps for Data Transformation")
 st.write("1. Short Term:")
 # Add code for short-term steps
